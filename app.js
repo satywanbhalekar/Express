@@ -8,10 +8,14 @@ const db = require("./Auth/models");
 const { verifyToken } = require('./Auth/middlewares/authJwt');
 const app = express()
 const port = process.env.PORT|| 30001
+const data = require('./models/mens')
 
 app.use(cors());
 app.use(express.json());
 app.use(router);
+
+
+
 
 
 const Role = db.role;

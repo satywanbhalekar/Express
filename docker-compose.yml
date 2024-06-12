@@ -1,0 +1,22 @@
+version: '3.8'
+
+services:
+  app:
+    image: node:18-alpine
+    working_dir: /RESTAPI
+    volumes:
+      - .:/RESTAPI
+    ports:
+      - 3000:3000
+    environment:
+      MONGODB_HOST: mongodb
+      MONGODB_PORT: 27017
+      MONGODB_DB: olympics
+    command: sh -c "yarn install --production && node src/index.js"
+
+  mongodb:
+    image: mongo:5.0
+    environment:
+      MONGO_INITDB_DATABASE: olympics
+    ports:
+      - 27018:27017  # Changed host port to 27018
