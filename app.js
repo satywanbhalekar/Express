@@ -3,34 +3,23 @@ require("./db/conn")
 const cors = require('cors');
 const router = require('./routers/men');
 const cookieSession = require("cookie-session");
-const dbConfig = require("./db/conn");
-const db = require("./Auth/models");
 const { verifyToken } = require('./Auth/middlewares/authJwt');
 const app = express()
 const port = process.env.PORT|| 30001
-const data = require('./models/mens')
+
 
 app.use(cors());
 app.use(express.json());
 app.use(router);
-
-
-
-
-
-const Role = db.role;
-
-// Middleware setup
-// app.use(cors()); // Enable CORS
-// app.use(express.json()); // Parse JSON bodies
 app.use(express.urlencoded({ extended: true })); // Parse URL-encoded bodies
 
 // Configure cookie session
 app.use(
   cookieSession({
-    name: "bezkoder-session",
+    name: "session",
     keys: [process.env.COOKIE_SECRET || "default-secret"],
-    httpOnly: true
+    httpOnly: true,
+    maxAge: 5 * 1000
   })
 );
 
